@@ -16,3 +16,19 @@ class UserSerializer(serializers.ModelSerializer):
     def create(self, data):
         user = User.objects.create_user(**data)
         return user
+
+
+class BetSerializer(serializers.ModelSerializer):
+
+	class Meta:
+		model = Bet
+		fields = '__all__'
+		
+
+class AuctionSerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = Auction
+        fields = '__all__'
+        readonly_fields = ('user', 'current_max_bet')
+    

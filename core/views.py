@@ -9,3 +9,7 @@ from core.serializers import *
 class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class AuctionViewSet(mixins.CreateModelMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
+	queryset = Auction.objects.all()
+	serializer_class = AuctionSerializer
