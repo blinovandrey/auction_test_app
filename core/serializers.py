@@ -19,16 +19,21 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class BetSerializer(serializers.ModelSerializer):
+    user_name = serializers.SerializerMethodField()
+    
+    def get_user_name(self, obj):
+        return obj.user.get_full_name()
 
-	class Meta:
-		model = Bet
-		fields = '__all__'
-		
+    class Meta:
+        model = Bet
+        fields = ('auction', 'user', 'value', 'user_name')
+        
 
 class AuctionSerializer(serializers.ModelSerializer):
+    bets = BetSerializer(many=True, source='bet_set')
     
     class Meta:
         model = Auction
         fields = '__all__'
-        readonly_fields = ('user', 'current_max_bet')
+        read_only_fields = ('current_max_bet',)
     

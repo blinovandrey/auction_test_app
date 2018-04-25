@@ -19,10 +19,12 @@ from django.urls import path
 from rest_framework import routers
 from rest_framework.authtoken import views as authviews
 
-from core.views import UserViewSet
+from core.views import UserViewSet, AuctionViewSet, BetViewSet
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
+router.register('auctions', AuctionViewSet)
+router.register('bets', BetViewSet)
 
 urlpatterns = [
 	path('api/', include(router.urls)),

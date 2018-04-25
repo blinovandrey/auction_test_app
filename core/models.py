@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import Decimal
 
 
 # Create your models here.
@@ -8,19 +9,14 @@ class Auction(models.Model):
 	price_start = models.DecimalField(max_digits=10, decimal_places=2)
 	price_step = models.DecimalField(max_digits=10, decimal_places=2)
 	end_at = models.DateTimeField()
-	current_max_bet = models.DecimalField(max_digits=10, decimal_places=2)
+	current_max_bet = models.OneToOneField('core.Bet', related_name='current_max_bet', null=True, on_delete=models.PROTECT)
 
 	def __str__(self):
 		return self.description
 
-	def save(self):
-		if not self.current_max_bet:
-			self.current_max_bet = self.price_start
-		return super(Auction, self).save(*args, **kwargs)
-
-	def update_max_bet(self, bet):
-		self.current_max_bet = bet
-		self.save()
+	def is_correct_bet(self, value):
+		current_bet = self.current_max_bet.value if self.current_max_bet else self.price_start
+		return Decimal(value) > current_bet and Decimal(value) % self.price_step == 0
 
 
 class Bet(models.Model):
@@ -29,4 +25,10 @@ class Bet(models.Model):
 	value = models.DecimalField(max_digits=10, decimal_places=2)
 
 	def __str__(self):
-		return self.value
+		return str(self.value)
+
+	def save(self,*args,**kwargs):
+		super(Bet, self).save(*args, **kwargs)
+		self.auction.current_max_bet=self
+		self.auction.save()
+		return self
