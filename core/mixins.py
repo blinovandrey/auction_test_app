@@ -25,5 +25,5 @@ class BetValidateMixin(mixins.CreateModelMixin):
 class AuctionCreateMixin(mixins.CreateModelMixin):
 
 	def create(self, request, *args, **kwargs):
-		request.data['user'] = request.user.id
+		request.data.update({'user': request.user.id})
 		return mixins.CreateModelMixin.create(self, request, *args, **kwargs)

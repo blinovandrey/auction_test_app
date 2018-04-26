@@ -10,7 +10,7 @@ class Auction(models.Model):
 	price_start = models.DecimalField(max_digits=10, decimal_places=2)
 	price_step = models.DecimalField(max_digits=10, decimal_places=2)
 	end_at = models.DateTimeField()
-	current_max_bet = models.OneToOneField('core.Bet', related_name='current_max_bet', null=True, on_delete=models.PROTECT)
+	current_max_bet = models.OneToOneField('core.Bet', related_name='current_max_bet', null=True, on_delete=models.CASCADE)
 	is_finished = models.BooleanField(default=False)
 
 	def __str__(self):

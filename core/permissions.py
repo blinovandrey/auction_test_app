@@ -4,7 +4,6 @@ from core.models import Auction
 class IsNotBetAuctionOwner(permissions.BasePermission):
     
     def has_permission(self, request, view):
-        import pdb; pdb.set_trace()
         try:
             auction = Auction.objects.get(pk=request.data.get('auction'))
         except Auction.DoesNotExist:
