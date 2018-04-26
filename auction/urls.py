@@ -18,15 +18,20 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework import routers
 from rest_framework.authtoken import views as authviews
+from rest_framework_swagger.views import get_swagger_view
 
 from core.views import UserViewSet, AuctionViewSet, BetViewSet
+
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)
 router.register('auctions', AuctionViewSet)
 router.register('bets', BetViewSet)
 
+schema_view = get_swagger_view(title='Auction API')
+
 urlpatterns = [
+	path('swagger/', schema_view),
 	path('api/', include(router.urls)),
     path('admin/', admin.site.urls),
     path('api/token-auth/', authviews.obtain_auth_token),

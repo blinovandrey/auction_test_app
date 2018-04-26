@@ -13,12 +13,12 @@ class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):
 
 
 class AuctionViewSet(AuctionCreateMixin, mixins.ListModelMixin, viewsets.GenericViewSet):
-	queryset = Auction.objects.all()
-	serializer_class = AuctionSerializer
-	permission_classes = (IsAuthenticated,)
+    queryset = Auction.objects.all()
+    serializer_class = AuctionSerializer
+    permission_classes = (IsAuthenticated,)
 
 
 class BetViewSet(BetValidateMixin, viewsets.GenericViewSet):
-	queryset = Bet.objects.all()
-	serializer_class = BetSerializer
-	permission_classes = (IsAuthenticated, IsNotBetAuctionOwner)
+    queryset = Bet.objects.all()
+    serializer_class = BetSerializer
+    permission_classes = (IsAuthenticated, IsNotBetAuctionOwner)

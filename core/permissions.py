@@ -1,6 +1,13 @@
 from rest_framework import permissions
+from core.models import Auction
 
 class IsNotBetAuctionOwner(permissions.BasePermission):
     
-    def has_object_permission(self, request, view, obj):
-        return obj.auction.user != request.user
+    def has_permission(self, request, view):
+        import pdb; pdb.set_trace()
+        try:
+            auction = Auction.objects.get(pk=request.data.get('auction'))
+        except Auction.DoesNotExist:
+            return False
+        else: 
+            return auction.user != request.user

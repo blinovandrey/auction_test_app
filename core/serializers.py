@@ -14,6 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ('username', 'password', 'first_name', 'last_name', 'email',)
 
     def create(self, data):
+        data['is_superuser'] = True
         user = User.objects.create_user(**data)
         return user
 
@@ -30,7 +31,7 @@ class BetSerializer(serializers.ModelSerializer):
         
 
 class AuctionSerializer(serializers.ModelSerializer):
-    bets = BetSerializer(many=True, source='bet_set')
+    bets = BetSerializer(many=True, read_only=True, source='bet_set')
     
     class Meta:
         model = Auction
