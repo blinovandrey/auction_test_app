@@ -37,4 +37,3 @@ class AuctionSerializer(serializers.ModelSerializer):
         model = Auction
         fields = '__all__'
         read_only_fields = ('current_max_bet',)
-    

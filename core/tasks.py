@@ -1,8 +1,11 @@
-import celery
 import logging
+
+import celery
 from django.contrib.auth.models import User
 from django.core.mail import send_mass_mail
+
 from core.models import Auction
+
 
 @celery.task
 def send_auction_finished_notification_email(user_id, auction_id):

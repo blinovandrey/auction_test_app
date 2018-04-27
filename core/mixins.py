@@ -1,7 +1,8 @@
-from rest_framework import mixins
-from core.models import Auction
+from rest_framework import mixins, status
 from rest_framework.response import Response
-from rest_framework import status
+
+from core.models import Auction
+
 
 class BetValidateMixin(mixins.CreateModelMixin):
 

@@ -20,8 +20,7 @@ from rest_framework import routers
 from rest_framework.authtoken import views as authviews
 from rest_framework_swagger.views import get_swagger_view
 
-from core.views import UserViewSet, AuctionViewSet, BetViewSet
-
+from core.views import AuctionViewSet, BetViewSet, UserViewSet
 
 router = routers.DefaultRouter()
 router.register('users', UserViewSet)

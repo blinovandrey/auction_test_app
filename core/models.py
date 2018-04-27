@@ -1,6 +1,7 @@
-from django.db import models
-from decimal import Decimal
 from datetime import datetime
+from decimal import Decimal
+
+from django.db import models
 
 
 # Create your models here.
@@ -29,8 +30,8 @@ class Bet(models.Model):
 	def __str__(self):
 		return str(self.value)
 
-	def save(self,*args,**kwargs):
+	def save(self, *args, **kwargs):
 		super(Bet, self).save(*args, **kwargs)
-		self.auction.current_max_bet=self
+		self.auction.current_max_bet = self
 		self.auction.save()
 		return self

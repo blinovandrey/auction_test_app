@@ -1,5 +1,7 @@
 from rest_framework import permissions
+
 from core.models import Auction
+
 
 class IsNotBetAuctionOwner(permissions.BasePermission):
     

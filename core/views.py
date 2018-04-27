@@ -1,10 +1,12 @@
 from django.contrib.auth.models import User
 from django.shortcuts import render
 from rest_framework import mixins, viewsets
+from rest_framework.permissions import IsAuthenticated
+
+from core.mixins import AuctionCreateMixin, BetValidateMixin
 from core.permissions import IsNotBetAuctionOwner
 from core.serializers import *
-from core.mixins import BetValidateMixin, AuctionCreateMixin
-from rest_framework.permissions import IsAuthenticated
+
 
 # Create your views here.
 class UserViewSet(mixins.CreateModelMixin, viewsets.GenericViewSet):

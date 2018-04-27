@@ -1,12 +1,11 @@
-from django.test import TestCase
-from rest_framework.test import APITestCase
-from rest_framework.test import APIClient
-from rest_framework.test import force_authenticate
-from unittest import mock
-from functools import wraps
-from django.contrib.auth.models import User
 import json
 from datetime import datetime
+from functools import wraps
+from unittest import mock
+
+from django.contrib.auth.models import User
+from django.test import TestCase
+from rest_framework.test import APIClient, APITestCase, force_authenticate
 
 from core.models import *
 
@@ -51,10 +50,8 @@ class AuctionCreateTests(APITestCase):
                 is_superuser=True
             )
             
-
     def tearDown(self):
         self.user_admin.delete()
-
 
     @authenticated_as_admin
     def test_create_auction(self):
@@ -102,12 +99,10 @@ class BetCreateTests(APITestCase):
             end_at=datetime.now()
         )
 
-
     def tearDown(self):
         self.user_admin.delete()
         self.user.delete()
         self.auction.delete()
-
 
     @authenticated_as_user
     def test_self_auction_bet(self):
@@ -118,7 +113,6 @@ class BetCreateTests(APITestCase):
         response = self.client.post('/api/bets/', data)
         self.assertEqual(response.status_code, 403)
 
-
     @authenticated_as_admin
     def test_auction_bet(self):
         data = {
@@ -128,7 +122,6 @@ class BetCreateTests(APITestCase):
         response = self.client.post('/api/bets/', data)
         self.assertEqual(response.status_code, 201)
 
-
     @authenticated_as_admin
     def test_auction_wrong_bet(self):
         data = {
@@ -137,7 +130,6 @@ class BetCreateTests(APITestCase):
         }
         response = self.client.post('/api/bets/', data)
         self.assertEqual(response.status_code, 400)
-
 
     @authenticated_as_another_user
     def test_auction_bet(self):
